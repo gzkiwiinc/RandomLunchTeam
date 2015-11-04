@@ -5,9 +5,8 @@ const Table = require('cli-table');
 const request = require('superagent');
 
 class Random{
-  constructor(members, hooks){
+  constructor(members){
     this.members = members;
-    this.hooks = hooks;
   }
 
   except(members){
@@ -59,23 +58,23 @@ class Random{
       stringifyGroups = stringifyGroups + `\n 食家 ${i} 组 \n ${group[i - 1].join(',')}`
     }
 
-    console.log(stringifyGroups);
+    // request
+    //   .post(this.hooks)
+    //   .send({
+    //     text: stringifyGroups,
+    //     channel: '#lunch'
+    //   })
+    //   .end((err,res) => {
+    //     if (err) {
+    //       console.log(err);
+    //     } else {
+    //       console.log(res.body);
+    //     }
+    //   })
 
-    request
-      .post(this.hooks)
-      .send({
-        text: stringifyGroups,
-        channel: '#lunch'
-      })
-      .end((err,res) => {
-        if (err) {
-          console.log(err);
-        } else {
-          console.log(res.body);
-        }
-      })
+    console.log(table.toString());
 
-    return table.toString();
+    return stringifyGroups;
   }
 }
 
