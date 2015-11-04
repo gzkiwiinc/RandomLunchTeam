@@ -1,6 +1,7 @@
 'use strict'
 
-let utils = require('./utils');
+const utils = require('./utils');
+const Table = require('cli-table');
 
 class Random{
   constructor(members){
@@ -33,6 +34,21 @@ class Random{
     if (restMemberCount) {
       group.push(this.members.slice(-restMemberCount));
     };
+
+    // table cli
+    let head = [];
+    let colWidths = [];
+    for (let i = 1; i < groupCount + 1; i++){
+      head.push(`Sickga ${i} Team`);
+      colWidths.push(20);
+    }
+    let table = new Table({
+      head,
+      colWidths
+    })
+    table.push(group);
+
+    console.log(table.toString());
 
     return this;
   }
