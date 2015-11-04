@@ -2,10 +2,12 @@
 
 const utils = require('./utils');
 const Table = require('cli-table');
+const request = require('superagent');
 
 class Random{
-  constructor(members){
+  constructor(members, hooks){
     this.members = members;
+    this.hooks = hooks;
   }
 
   except(members){
@@ -15,24 +17,24 @@ class Random{
     return this;
   }
 
-  run(expectGroupCount){
-    let groupCount = expectGroupCount;
-    let memberCountPerGroup = Math.floor(this.members.length / expectGroupCount);
+  group(groupCount){
+    let memberCountPerGroup = Math.floor(this.members.length / groupCount);
     this.members = utils.shuffle(this.members);
 
     let restMemberCount = 0;
-    if ( this.members.length % expectGroupCount ) {
-      groupCount++;
-      restMemberCount = this.members.length % expectGroupCount;
+    if ( this.members.length % groupCount ) {
+      restMemberCount = this.members.length % groupCount;
     }
 
     let group = [];
-    for (let i = 0; i < expectGroupCount; i++) {
+    for (let i = 0; i < groupCount; i++) {
       group.push(this.members.slice(i * memberCountPerGroup, (i + 1) * memberCountPerGroup));
     };
 
     if (restMemberCount) {
-      group.push(this.members.slice(-restMemberCount));
+      for(let i = 1; i < restMemberCount + 1; i++){
+        group[i-1] = group[i-1].concat(this.members[this.members.length - i]);
+      }
     };
 
     // table cli
@@ -40,8 +42,9 @@ class Random{
     let colWidths = [];
     for (let i = 1; i < groupCount + 1; i++){
       head.push(`Sickga ${i} Team`);
-      colWidths.push(20);
+      colWidths.push(30);
     }
+
     let table = new Table({
       head,
       colWidths
@@ -50,7 +53,29 @@ class Random{
 
     console.log(table.toString());
 
-    return this;
+    let stringifyGroups = '';
+
+    for(let i = 1; i < group.length + 1; i++){
+      stringifyGroups = stringifyGroups + `\n 食家 ${i} 组 \n ${group[i - 1].join(',')}`
+    }
+
+    console.log(stringifyGroups);
+
+    request
+      .post(this.hooks)
+      .send({
+        text: stringifyGroups,
+        channel: '#lunch'
+      })
+      .end((err,res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res.body);
+        }
+      })
+
+    return table.toString();
   }
 }
 

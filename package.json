@@ -1,6 +1,6 @@
 {
   "name": "liubai-random-lunch",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Random Lunch Team =================",
   "main": "random.js",
   "scripts": {
@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/djyde/RandomLunchTeam#readme",
   "dependencies": {
-    "cli-table": "^0.3.1"
+    "cli-table": "^0.3.1",
+    "superagent": "^1.4.0"
   }
 }

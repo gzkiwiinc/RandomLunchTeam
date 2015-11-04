@@ -18,18 +18,19 @@ $ npm install
 ```
 
 ```javascript
+const config = require('./config');
 let Random = require('path/to/random');
-let random = new Random(require('/path/to/config').members);
+let random = new Random(config.members, config.hooks);
 
 // grouping all the members
-random.run()
+random.group();
 
 // grouping all the members apart from several members
-random.except(['foo', 'bar']).run();
+random.except(['foo', 'bar']).group();
 ```
 
 # API
 
-### Random(members<Array>)
+### Random(members<Array>, hooks<String>)
 ### Random.except(members<Array>)
-### Random.run()
+### Random.group()
