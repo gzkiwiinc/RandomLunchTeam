@@ -2,7 +2,7 @@
   "name": "liubai-random-lunch",
   "version": "0.2.0",
   "description": "Random Lunch Team =================",
-  "main": "index.js",
+  "main": "random.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
