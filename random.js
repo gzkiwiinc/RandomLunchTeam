@@ -15,24 +15,24 @@ class Random{
     return this;
   }
 
-  run(expectGroupCount){
-    let groupCount = expectGroupCount;
-    let memberCountPerGroup = Math.floor(this.members.length / expectGroupCount);
+  run(groupCount){
+    let memberCountPerGroup = Math.floor(this.members.length / groupCount);
     this.members = utils.shuffle(this.members);
 
     let restMemberCount = 0;
-    if ( this.members.length % expectGroupCount ) {
-      groupCount++;
-      restMemberCount = this.members.length % expectGroupCount;
+    if ( this.members.length % groupCount ) {
+      restMemberCount = this.members.length % groupCount;
     }
 
     let group = [];
-    for (let i = 0; i < expectGroupCount; i++) {
+    for (let i = 0; i < groupCount; i++) {
       group.push(this.members.slice(i * memberCountPerGroup, (i + 1) * memberCountPerGroup));
     };
 
     if (restMemberCount) {
-      group.push(this.members.slice(-restMemberCount));
+      for(let i = 1; i < restMemberCount + 1; i++){
+        group[i-1] = group[i-1].concat(this.members[this.members.length - i]);
+      }
     };
 
     // table cli
@@ -40,7 +40,7 @@ class Random{
     let colWidths = [];
     for (let i = 1; i < groupCount + 1; i++){
       head.push(`Sickga ${i} Team`);
-      colWidths.push(20);
+      colWidths.push(30);
     }
     let table = new Table({
       head,
