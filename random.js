@@ -61,7 +61,7 @@ class Random{
     console.log(stringifyGroups);
 
     request
-      .post('https://hooks.slack.com/services/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')
+      .post(config.hooks)
       .send({
         text: stringifyGroups,
         channel: '#lunch'
