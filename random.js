@@ -5,8 +5,9 @@ const Table = require('cli-table');
 const request = require('superagent');
 
 class Random{
-  constructor(members){
+  constructor(members, hooks){
     this.members = members;
+    this.hooks = hooks;
   }
 
   except(members){
@@ -16,7 +17,7 @@ class Random{
     return this;
   }
 
-  run(groupCount){
+  group(groupCount){
     let memberCountPerGroup = Math.floor(this.members.length / groupCount);
     this.members = utils.shuffle(this.members);
 
@@ -61,7 +62,7 @@ class Random{
     console.log(stringifyGroups);
 
     request
-      .post(config.hooks)
+      .post(this.hooks)
       .send({
         text: stringifyGroups,
         channel: '#lunch'
