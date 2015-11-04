@@ -2,6 +2,7 @@
 
 const utils = require('./utils');
 const Table = require('cli-table');
+const request = require('superagent');
 
 class Random{
   constructor(members){
@@ -42,6 +43,7 @@ class Random{
       head.push(`Sickga ${i} Team`);
       colWidths.push(30);
     }
+
     let table = new Table({
       head,
       colWidths
@@ -49,6 +51,28 @@ class Random{
     table.push(group);
 
     console.log(table.toString());
+
+    let stringifyGroups = '';
+
+    for(let i = 1; i < group.length + 1; i++){
+      stringifyGroups = stringifyGroups + `\n 食家 ${i} 组 \n ${group[i - 1].join(',')}`
+    }
+
+    console.log(stringifyGroups);
+
+    request
+      .post('https://hooks.slack.com/services/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')
+      .send({
+        text: stringifyGroups,
+        channel: '#lunch'
+      })
+      .end((err,res) => {
+        if (err) {
+          console.log(err);
+        } else {
+          console.log(res.body);
+        }
+      })
 
     return table.toString();
   }

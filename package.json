@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/djyde/RandomLunchTeam#readme",
   "dependencies": {
-    "cli-table": "^0.3.1"
+    "cli-table": "^0.3.1",
+    "superagent": "^1.4.0"
   }
 }
