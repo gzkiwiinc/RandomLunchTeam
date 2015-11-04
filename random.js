@@ -50,7 +50,7 @@ class Random{
 
     console.log(table.toString());
 
-    return this;
+    return table.toString();
   }
 }
 
