@@ -17,7 +17,9 @@
   },
   "homepage": "https://github.com/djyde/RandomLunchTeam#readme",
   "dependencies": {
+    "body-parser": "^1.14.1",
     "cli-table": "^0.3.1",
+    "express": "^4.13.3",
     "superagent": "^1.4.0"
   }
 }
