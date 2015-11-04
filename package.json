@@ -1,0 +1,22 @@
+{
+  "name": "liubai-random-lunch",
+  "version": "0.2.0",
+  "description": "Random Lunch Team =================",
+  "main": "random.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djyde/RandomLunchTeam.git"
+  },
+  "author": "Randy Lu <randypriv@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djyde/RandomLunchTeam/issues"
+  },
+  "homepage": "https://github.com/djyde/RandomLunchTeam#readme",
+  "dependencies": {
+    "cli-table": "^0.3.1"
+  }
+}
